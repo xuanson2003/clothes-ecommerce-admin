@@ -1,0 +1,25 @@
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 2px;
+    min-height: 52px;
+    gap: 12px;
+
+    &:hover {
+        background-color: #eeeeee;
+    }
+
+    .sidebar-item-icon {
+        padding-left: 8px;
+        img {
+            width: 34px;
+        }
+    }
+
+    p {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #000;
+    }
+}

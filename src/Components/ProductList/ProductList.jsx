@@ -1,16 +1,48 @@
-import React from 'react';
-
-import './ProductList.scss';
-import data from '~/Assets/Images/data';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
+import './ProductList.scss';
+import request from '~/Utils/httpRequest';
+
 const ProductList = () => {
+    const [allProducts, setAllProducts] = useState([]);
     const Category = {
         men: 'Nam',
         women: 'Nữ',
         kid: 'Trẻ em',
     };
+
+    const getProductList = async () => {
+        try {
+            const response = await request.get('product/allproducts');
+            setAllProducts(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        getProductList();
+    }, []);
+
+    const removeProduct = async (id) => {
+        try {
+            await request({
+                method: 'DELETE',
+                url: 'product/removeproduct',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                data: { id: id },
+            });
+            await getProductList();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <div className="product-list">
             <table>
@@ -26,9 +58,9 @@ const ProductList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item) => (
-                        <tr>
-                            <td>{item.id}</td>
+                    {allProducts.map((item) => (
+                        <tr key={item._id}>
+                            <td>{item._id}</td>
                             <td className="product-list-img">
                                 <img src={item.image} alt="" />
                             </td>
@@ -45,7 +77,11 @@ const ProductList = () => {
                                 <p>{Category[item.category]}</p>
                             </td>
                             <td className="product-list-remove">
-                                <button>
+                                <button
+                                    onClick={() => {
+                                        removeProduct(item._id);
+                                    }}
+                                >
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </button>
                             </td>

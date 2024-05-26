@@ -7,7 +7,7 @@ import product_add from '~/Assets/Images/Product_Cart.svg';
 const Sidebar = () => {
     return (
         <div className="sidebar">
-            <SidebarItem path="/product/list" title="Sản phẩm" icon={<img src={product_list} alt="" />} />
+            <SidebarItem path="/" title="Sản phẩm" icon={<img src={product_list} alt="" />} />
             <SidebarItem path="/product/add" title="Thêm sản phẩm" icon={<img src={product_add} alt="" />} />
         </div>
     );

@@ -15,7 +15,7 @@ function App() {
                     <Sidebar />
                     <div className="App-container-main">
                         <Routes>
-                            <Route path="/product/list" element={<ProductList />} />
+                            <Route path="/" element={<ProductList />} />
                             <Route path="/product/add" element={<AddProduct />} />
                         </Routes>
                     </div>
